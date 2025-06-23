@@ -2,13 +2,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Chá de Casa Nova</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Convite Chá de Casa Nova</title>
+<style>
+  body {
+    background: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #b8860b; /* dourado */
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    padding: 30px 20px 10px 20px;
+  }
+  header img.logo, header img.casal {
+    max-width: 150px;
+    border-radius: 15px;
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+  header img.logo {
+    max-width: 100px;
+  }
+  h1 {
+    margin: 20px 0 10px 0;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+  p.convite {
+    max-width: 400px;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  #presenca, #lista-presentes {
+    width: 320px;
+    margin-bottom: 30px;
+  }
+  input[type="text"] {
+    width: calc(100% - 100px);
+    padding: 8px 12px;
+    border: 2px solid #b8860b;
+    border-radius: 6px 0 0 6px;
+    font-size: 1rem;
+    outline: none;
+  }
+  button.confirmar {
+    width: 100px;
+    padding: 9px 0;
+    background-color: #b8860b;
+    color: white;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button.confirmar:hover:not(:disabled) {
+    background-color: #a57507;
+  }
+  ul.presentes {
+    list-style: none;
+    padding: 0;
+  }
+  ul.presentes li {
+    background: #fff8dc;
+    margin: 8px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+  }
+  ul.presentes li.riscado {
+    text-decoration: line-through;
+    color: #7f6a02;
+    cursor: default;
+    background: #f0e6b9;
+  }
+  ul.presentes li input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.3);
+    cursor: pointer;
+  }
+  #mensagem-agradecimento {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #a26c00;
+  }
+</style>
 </head>
 <body>
-  <h1>Bem-vindo ao nosso chá de casa nova! 🎉</h1>
-  <p>Estamos preparando algo especial pra você...</p>
 
-  <script type="module" src="script.js"></script>
+<header>
+  <!-- Troque os src abaixo pelas suas imagens reais -->
+  <img class="casal" src="https://via.placeholder.com/150x150.png?text=Foto+Casal" alt="Foto do casal" />
+  <img class="logo" src="https://via.placeholder.com/100x100.png?text=Logo" alt="Logo do evento" />
+  <h1>Você está convidado!</h1>
+  <p class="convite">
+    Venha comemorar conosco nosso chá de casa nova. Sua presença é muito importante!
+  </p>
+</header>
+
+<section id="presenca">
+  <input type="text" id="nome" placeholder="Digite seu nome" />
+  <button class="confirmar" id="btn-confirmar">Confirmar Presença</button>
+</section>
+
+<section id="lista-presentes" style="display:none;">
+  <h2>Lista de Presentes</h2>
+  <ul class="presentes" id="presentes">
+    <li><input type="checkbox" value="Jogo de Panelas" /> Jogo de Panelas</li>
+    <li><input type="checkbox" value="Conjunto de Toalhas" /> Conjunto de Toalhas</li>
+    <li><input type="checkbox" value="Aparelho de Jantar" /> Aparelho de Jantar</li>
+    <li><input type="checkbox" value="Cafeteira" /> Cafeteira</li>
+    <li><input type="checkbox" value="Jogo de Talheres" /> Jogo de Talheres</li>
+  </ul>
+  <button class="confirmar" id="btn-presentes">Confirmar Presente</button>
+  <p id="mensagem-agradecimento"></p>
+</section>
+
+<script type="module">
+  const btnConfirmar = document.getElementById('btn-confirmar');
+  const nomeInput = document.getElementById('nome');
+  const presencaSection = document.getElementById('presenca');
+  const listaPresentesSection = document.getElementById('lista-presentes');
+  const presentesUl = document.getElementById('presentes');
+  const btnPresentes = document.getElementById('btn-presentes');
+  const mensagemAgradecimento = document.getElementById('mensagem-agradecimento');
+
+  btnConfirmar.addEventListener('click', () => {
+    const nome = nomeInput.value.trim();
+    if (!nome) {
+      alert('Por favor, digite seu nome para confirmar presença.');
+      return;
+    }
+    presencaSection.style.display = 'none';
+    listaPresentesSection.style.display = 'block';
+  });
+
+  btnPresentes.addEventListener('click', () => {
+    const checkboxes = presentesUl.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkboxes.length === 0) {
+      alert('Por favor, selecione pelo menos um presente.');
+      return;
+    }
+    checkboxes.forEach(cb => {
+      const li = cb.parentElement;
+      li.classList.add('riscado');
+      cb.disabled = true;
+      cb.checked = false;
+    });
+    mensagemAgradecimento.textContent = 'Obrigado por confirmar seu presente! 💛';
+  });
+</script>
+
 </body>
 </html>
