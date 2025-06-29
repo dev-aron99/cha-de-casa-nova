@@ -1,6 +1,15 @@
+// Importações do Firebase (NÃO misture CDN com módulos do NPM)
 import { db } from './firebase-config.js';
-import { collection, onSnapshot, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  updateDoc,
+  doc,
+  serverTimestamp
+} from 'firebase/firestore';
 
+// Referências aos elementos
 const btnConfirmar = document.getElementById('btn-confirmar');
 const nomeInput = document.getElementById('nome');
 const presencaSection = document.getElementById('presenca');
@@ -11,7 +20,7 @@ const mensagemAgradecimento = document.getElementById('mensagem-agradecimento');
 let nomeConvidado = '';
 
 // Quando a pessoa confirma presença
-btnConfirmar.addEventListener('click', () => {
+btnConfirmar.addEventListener('click', async () => {
   const nome = nomeInput.value.trim();
   if (!nome) {
     alert('Por favor, digite seu nome para confirmar presença.');
@@ -19,8 +28,21 @@ btnConfirmar.addEventListener('click', () => {
   }
 
   nomeConvidado = nome;
-  presencaSection.style.display = 'none';
-  listaPresentesSection.style.display = 'block';
+
+  // Salvar presença no Firebase
+  try {
+    await addDoc(collection(db, 'presencas'), {
+      nome: nomeConvidado,
+      confirmadoEm: serverTimestamp()
+    });
+
+    // Mostrar seção de presentes
+    presencaSection.style.display = 'none';
+    listaPresentesSection.style.display = 'block';
+  } catch (error) {
+    console.error("Erro ao confirmar presença:", error);
+    alert("Ocorreu um erro ao registrar sua presença.");
+  }
 });
 
 // Referência para a coleção "presentes"
@@ -56,7 +78,7 @@ function criarLiPresente(presente) {
   return li;
 }
 
-// Ouvinte em tempo real
+// Ouvinte em tempo real para carregar os presentes
 onSnapshot(presentesCollection, (snapshot) => {
   presentesUl.innerHTML = ''; // limpa lista
   snapshot.forEach(docSnap => {

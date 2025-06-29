@@ -2,7 +2,7 @@
 body {
     color: #D4AF37; /* tom clássico dourado */
     font-family: Arial, sans-serif;
-    background-color: #000; /* opcional, para dar contraste */
+    background-color: #eee7e7; /* opcional, para dar contraste */
     margin: 0;
     padding: 20px;
   }
@@ -10,7 +10,7 @@ body {
   /* Botão dourado com borda prateada e texto prateado */
   button.confirmar-presenca {
     background-color: #D4AF37; /* dourado */
-    color: #D4AF37; /* prateado */
+    color: #f3f3f3; /* prateado */
     border: 2px solid #C0C0C0; /* borda prateada */
     padding: 10px 20px;
     font-size: 1rem;
