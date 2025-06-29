@@ -7,6 +7,22 @@ body {
     padding: 20px;
   }
   
+  /* Logo responsiva */
+  .logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 180px; /* altura máxima para desktop */
+    display: block;
+    margin: 0 auto 20px auto; /* centraliza e espaça abaixo */
+  }
+  
+  /* Ajuste para telas pequenas */
+  @media (max-width: 600px) {
+    .logo {
+      max-height: 100px;
+    }
+  }
+  
   /* Botão dourado com borda prateada e texto prateado */
   button.confirmar-presenca {
     background-color: #D4AF37; /* dourado */

@@ -1,14 +1,3 @@
-// Importações do Firebase (NÃO misture CDN com módulos do NPM)
-import { db } from './firebase-config.js';
-import {
-  collection,
-  addDoc,
-  onSnapshot,
-  updateDoc,
-  doc,
-  serverTimestamp
-} from 'firebase/firestore';
-
 // Referências aos elementos
 const btnConfirmar = document.getElementById('btn-confirmar');
 const nomeInput = document.getElementById('nome');
