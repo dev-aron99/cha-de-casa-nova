@@ -1,22 +1,21 @@
-// Importações para Firebase App e Realtime Database
+// firebase-config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// Configuração do seu Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAnViXtYbOPSCAWEkYUoSmKHbgKqAMf4ok",
-  authDomain: "cha-de-casa-nova-75fd3.firebaseapp.com",
-  databaseURL: "https://cha-de-casa-nova-75fd3-default-rtdb.firebaseio.com",
-  projectId: "cha-de-casa-nova-75fd3",
-  storageBucket: "cha-de-casa-nova-75fd3.firebasestorage.app",
-  messagingSenderId: "64932178547",
-  appId: "1:64932178547:web:ffab112ed34ac427699806",
-  measurementId: "G-E6JC94CR5X"
+  apiKey: "AIzaSyDMS1hwRAkEsw82YZkGdLDcofgn60SMJ6Q",
+  authDomain: "cha-de-casa-nova-6ee9c.firebaseapp.com",
+  projectId: "cha-de-casa-nova-6ee9c",
+  storageBucket: "cha-de-casa-nova-6ee9c.appspot.com",
+  messagingSenderId: "47375351021",
+  appId: "1:47375351021:web:30da8a1da47da68a2920e4"
 };
 
-// Inicializa Firebase e Database
+// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
-// Exporta para usar em outros arquivos
-export { db, ref, onValue, set };
+// Inicializa Firestore
+const db = getFirestore(app);
+
+// Exporta db para usar em outros scripts
+export { db };
