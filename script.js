@@ -1,74 +1,72 @@
 import { db } from './firebase-config.js';
 import { collection, onSnapshot, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// aí você usa db, collection, etc.
+const btnConfirmar = document.getElementById('btn-confirmar');
+const nomeInput = document.getElementById('nome');
+const presencaSection = document.getElementById('presenca');
+const listaPresentesSection = document.getElementById('lista-presentes');
+const presentesUl = document.getElementById('presentes');
+const mensagemAgradecimento = document.getElementById('mensagem-agradecimento');
 
-const btnConfirmar = document.getElementById("btn-confirmar");
-const nomeInput = document.getElementById("nome");
-const presencaSection = document.getElementById("presenca");
-const listaPresentesSection = document.getElementById("lista-presentes");
-const presentesUl = document.getElementById("presentes");
-const btnPresentes = document.getElementById("btn-presentes");
-const mensagemAgradecimento = document.getElementById("mensagem-agradecimento");
+let nomeConvidado = '';
 
-let nomeConvidado = "";
-
-btnConfirmar.addEventListener("click", () => {
+// Quando a pessoa confirma presença
+btnConfirmar.addEventListener('click', () => {
   const nome = nomeInput.value.trim();
   if (!nome) {
-    alert("Por favor, digite seu nome para confirmar presença.");
+    alert('Por favor, digite seu nome para confirmar presença.');
     return;
   }
+
   nomeConvidado = nome;
-  presencaSection.style.display = "none";
-  listaPresentesSection.style.display = "block";
+  presencaSection.style.display = 'none';
+  listaPresentesSection.style.display = 'block';
 });
 
-const presentesCollection = collection(db, "presentes");
+// Referência para a coleção "presentes"
+const presentesCollection = collection(db, 'presentes');
 
-// Função para criar um li para o presente
+// Função que cria o item da lista
 function criarLiPresente(presente) {
-  const li = document.createElement("li");
-  li.textContent = presente.nome;
-
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.disabled = presente.selecionado;
-  checkbox.checked = false;
+  const li = document.createElement('li');
 
   if (presente.selecionado) {
-    li.classList.add("riscado");
-    li.innerHTML = `✅ ${presente.nome} <small style="margin-left:auto;font-size:0.9em;color:#666;">(por ${presente.selecionadoPor})</small>`;
+    li.classList.add('riscado');
+    li.textContent = `${presente.nome} (Escolhido por: ${presente.selecionadoPor})`;
+  } else {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.style.marginRight = '15px';
+
+    checkbox.addEventListener('change', async () => {
+      if (checkbox.checked) {
+        const docRef = doc(db, 'presentes', presente.id);
+        await updateDoc(docRef, {
+          selecionado: true,
+          selecionadoPor: nomeConvidado,
+        });
+        mensagemAgradecimento.textContent = 'Obrigado por confirmar seu presente! 💛';
+      }
+    });
+
+    li.appendChild(checkbox);
+    li.appendChild(document.createTextNode(presente.nome));
   }
-
-  li.prepend(checkbox);
-
-  checkbox.addEventListener("change", () => {
-    if (checkbox.checked) {
-      // Atualiza Firestore para marcar como selecionado
-      const presenteDoc = doc(db, "presentes", presente.id);
-      updateDoc(presenteDoc, {
-        selecionado: true,
-        selecionadoPor: nomeConvidado,
-      });
-      mensagemAgradecimento.textContent = "Obrigado por confirmar seu presente! 💛";
-    }
-  });
 
   return li;
 }
 
-// Ouve alterações em tempo real no Firestore
+// Ouvinte em tempo real
 onSnapshot(presentesCollection, (snapshot) => {
-  presentesUl.innerHTML = "";
-  snapshot.forEach((docSnap) => {
+  presentesUl.innerHTML = ''; // limpa lista
+  snapshot.forEach(docSnap => {
     const dado = docSnap.data();
     presentesUl.appendChild(
       criarLiPresente({
         id: docSnap.id,
         nome: dado.nome,
         selecionado: dado.selecionado || false,
-        selecionadoPor: dado.selecionadoPor || "",
+        selecionadoPor: dado.selecionadoPor || '',
       })
     );
   });

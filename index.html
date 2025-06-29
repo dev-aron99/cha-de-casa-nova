@@ -1,70 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Convite Chá de Casa Nova</title>
-<style>
-  body {
-    background: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #b8860b;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column; align-items: center;
-    min-height: 100vh;
-  }
-  header {
-    text-align: center;
-    padding: 30px 20px 10px 20px;
-  }
-  header img.logo, header img.casal {
-    max-width: 150px;
-    border-radius: 15px;
-    margin: 0 10px;
-    vertical-align: middle;
-  }
-  header img.logo {
-    max-width: 100px;
-  }
-  h1 {
-    margin: 20px 0 10px 0;
-    font-weight: 700;
-    font-size: 2.5rem;
-  }
-  p.convite {
-    max-width: 400px;
-    font-size: 1.2rem;
-    margin-bottom: 50px;
-  }
-  #presenca, #lista-presentes {
-    width: 320px;
-    margin-bottom: 30px;
-  }
-  input[type="text"] {
-    width: calc(100% - 100px);
-    padding: 8px 12px;
-    border: 2px solid #b8860b;
-    border-radius: 6px 0 0 6px;
-    font-size: 1rem;
-    outline: none;
-  }
-  button.confirmar {
-    width: 100px;
-    padding: 9px 0;
-    background-color: #b8860b;
-    color: white;
-    border: none;
-    border-radius: 0 6px 6px 0;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  button.confirmar:hover:not(:disabled) {
-    background-color: #a57507;
-  }
-  ul.presentes {
-    list-style: none;
-    padding: 0;
-  }
-  ul.presentes li {
-    background: #fff8dc;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chá de Casa Nova - Lohane & Felipe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="images/logo.png" alt="Logo do casal" class="logo">
+    <h1>Lohane & Felipe</h1>
+    <p>Estamos de casa nova e queremos comemorar com você! 🎉</p>
+  </header>
+
+  <main>
+    <section class="presenca">
+      <h2>Confirme sua presença</h2>
+      <input type="text" id="nome" placeholder="Digite seu nome para marcar presença">
+    </section>
+
+    <section class="presentes">
+      <h2>Escolha um presente</h2>
+      <ul id="presentes"></ul>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
