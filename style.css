@@ -1,53 +1,29 @@
+/* Deixa todo o texto da página em dourado */
 body {
+    color: #D4AF37; /* tom clássico dourado */
     font-family: Arial, sans-serif;
-    background-color: #fffaf2;
+    background-color: #000; /* opcional, para dar contraste */
     margin: 0;
     padding: 20px;
-    text-align: center;
   }
   
-  header img.logo {
-    width: 120px;
-    margin-top: 10px;
-  }
-  
-  h1 {
-    margin-bottom: 5px;
-  }
-  
-  p {
-    margin-top: 0;
-    color: #666;
-  }
-  
-  .presenca input {
-    padding: 8px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-  
-  ul#presentes {
-    list-style: none;
-    padding: 0;
-  }
-  
-  ul#presentes li {
-    background: #eee;
-    margin: 10px auto;
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 400px;
+  /* Botão dourado com borda prateada e texto prateado */
+  button.confirmar-presenca {
+    background-color: #D4AF37; /* dourado */
+    color: #C0C0C0; /* prateado */
+    border: 2px solid #C0C0C0; /* borda prateada */
+    padding: 10px 20px;
+    font-size: 1rem;
     cursor: pointer;
+    margin-top: 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  ul#presentes li.riscado {
-    background: #ccc;
-    text-decoration: line-through;
-    color: #666;
-    cursor: not-allowed;
+  /* Efeito hover para o botão */
+  button.confirmar-presenca:hover {
+    background-color: #b78f1f; /* dourado mais escuro */
+    color: #f0f0f0; /* texto prateado mais claro */
+    border-color: #e0e0e0;
   }
   
