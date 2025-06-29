@@ -10,7 +10,7 @@ body {
   /* Botão dourado com borda prateada e texto prateado */
   button.confirmar-presenca {
     background-color: #D4AF37; /* dourado */
-    color: #C0C0C0; /* prateado */
+    color: #D4AF37; /* prateado */
     border: 2px solid #C0C0C0; /* borda prateada */
     padding: 10px 20px;
     font-size: 1rem;
